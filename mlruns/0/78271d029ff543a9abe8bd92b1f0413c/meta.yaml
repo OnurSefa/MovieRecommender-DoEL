@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/os/Desktop/git/MovieRecommender-DoEL/mlruns/0/78271d029ff543a9abe8bd92b1f0413c/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 78271d029ff543a9abe8bd92b1f0413c
+run_name: '001'
+run_uuid: 78271d029ff543a9abe8bd92b1f0413c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1725673166030
+status: 1
+tags: []
+user_id: os

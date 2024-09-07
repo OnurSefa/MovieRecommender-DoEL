@@ -13,14 +13,18 @@ my needs.
 # Version 0
 
 ## Current Plan
-* Create encodings
-* Split dataset
-* Implement Loader
-* Create DL Structure
 * Make Initial Experiments
 
-## 2024.09.05 - v0.0.0
+## v0.0.0
 
+### 2024.09.06
+
+* Created encoder
+* Split dataset
+* Implemented loader
+* Created initial DL structure
+
+### 2024.09.05
 * Retrieved [MovieLens 32M](https://grouplens.org/datasets/movielens/) dataset.
 * Handled preprocess operations arranging movie and rating information appropriate to next steps and requirements.
 

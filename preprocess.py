@@ -171,15 +171,11 @@ def prepare_dataset(ratings_dir, out_dir, sample_divider=30, past_movie_count=10
         sample_divider = past_movie_count + future_movie_count
 
     for n, name in enumerate(os.listdir(ratings_dir)):
-        if n % 50000 == 0:
+        if n % 5000 == 0:
             print(n)
-        user_id = name.split('.')[0]
-        out_path = f"{out_dir}/{user_id}.txt"
-        if os.path.exists(out_path):
-            continue
-        dateset = ""
         if name == '.DS_Store':
             continue
+        user_id = name.split('.')[0]
         with open(f'{ratings_dir}/{name}', 'r') as f:
             data = json.load(f)
         required_data_count = 0
@@ -194,6 +190,7 @@ def prepare_dataset(ratings_dir, out_dir, sample_divider=30, past_movie_count=10
         if len(data) < required_data_count:
             continue
         for i in range(math.ceil(len(data)/sample_divider)):
+            out_path = f"{out_dir}/{user_id}_{i}.txt"
             datum = f"{user_id}|{i}<past>"
             past_mask = "<past_mask>"
             if len(data) == required_data_count:
@@ -217,16 +214,19 @@ def prepare_dataset(ratings_dir, out_dir, sample_divider=30, past_movie_count=10
                     datum += rating['movie_id'] + "-"
                 current_index += 1
             datum = datum[:-1] + "<future_mask>"
+            future_mask_added = False
             while current_index < len(data):
                 rating = data[current_index]
                 if rating['rating'] == 2:
                     datum += rating['movie_id'] + "-"
+                    future_mask_added = True
                 current_index += 1
-            dateset += datum[:-1] + past_mask[:-1] + "\n"
-
-        with open(out_path, 'w') as f:
-            f.write(dateset)
-
+            if future_mask_added:
+                datum = datum[:-1] + past_mask[:-1]
+            else:
+                datum = datum + past_mask[:-1]
+            with open(out_path, 'w') as f:
+                f.write(datum)
 
 
 def find_aux_data(movies_dir, out_path):
@@ -265,8 +265,8 @@ def find_aux_data(movies_dir, out_path):
 
 
 if __name__ == '__main__':
-    preprocess_ratings('../movie_recommender_data/ml-32m/ratings.csv', '../movie_recommender_data/ratings')
-    preprocess_tags('../movie_recommender_data/ml-32m/tags.csv', '../movie_recommender_data/ml-32m/tags.json')
-    preprocess_movies("../movie_recommender_data/ml-32m/movies.csv", '../movie_recommender_data/ml-32m/tags.json', '../movie_recommender_data/movies')
+    # preprocess_ratings('../movie_recommender_data/ml-32m/ratings.csv', '../movie_recommender_data/ratings')
+    # preprocess_tags('../movie_recommender_data/ml-32m/tags.csv', '../movie_recommender_data/ml-32m/tags.json')
+    # preprocess_movies("../movie_recommender_data/ml-32m/movies.csv", '../movie_recommender_data/ml-32m/tags.json', '../movie_recommender_data/movies')
     prepare_dataset('../movie_recommender_data/ratings', '../movie_recommender_data/dataset')
-    find_aux_data("../movie_recommender_data/movies", '../movie_recommender_data/aux_data.json')
+    # find_aux_data("../movie_recommender_data/movies", '../movie_recommender_data/aux_data.json')
