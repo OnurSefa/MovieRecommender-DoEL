@@ -12,10 +12,23 @@ my needs.
 
 # Version 0
 
-## Current Plan
-* Make Initial Experiments
+## V0.1.0
+### Current Plan
+* Change dataset structure
+  * 10 past movie information with ratings
+  * 5 future positive movies
+  * 5 future negative and neutral movies (negatives have priority)
+* Change encoder
+* Update model and loss mechanism
+
 
 ## v0.0.0
+
+### 2024.09.07
+
+* Initial Experiments are completed
+  * Because the model tries to predict 5 positive classes out of 80k classes, it gets stuck predicting all of the classes as negative.
+  * Training scheme will be changed
 
 ### 2024.09.06
 

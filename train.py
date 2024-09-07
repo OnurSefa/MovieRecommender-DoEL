@@ -79,12 +79,12 @@ if __name__ == '__main__':
     m = Model()
     ec = 10
     md = '../movie_recommender_data/models'
-    si = 300000
+    si = 300
     bs = 16
 
     learning_rate = 0.0002
     optim = o.Adam(m.parameters(), lr=learning_rate)
-    mp = "002"
+    mp = "003"
 
     mlflow.start_run(run_name=mp)
     mlflow.log_param('learning rate', learning_rate)
